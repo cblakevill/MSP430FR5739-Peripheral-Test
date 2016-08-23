@@ -82,11 +82,11 @@ __interrupt void P4_ISR(void)
 {
 	if(P4IFG & BIT0)
 	{
-		P4IFG &= (BIT0);
+		P4IFG &= ~(BIT0);
 		bool_button = ~bool_button; //toggle PJOUT output (NTC or blank)
 	}
 	else
 	{
-		P4IFG &= (BIT0 + BIT1);
+		P4IFG &= ~(BIT0 + BIT1);
 	}
 }
