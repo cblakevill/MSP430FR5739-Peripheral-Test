@@ -80,6 +80,13 @@ int main(void)
 #pragma vector = PORT4_VECTOR
 __interrupt void P4_ISR(void)
 {
-		P4IFG &= 0x00; //reset flag
+	if(P4IFG & BIT0)
+	{
+		P4IFG &= (BIT0);
 		bool_button = ~bool_button; //toggle PJOUT output (NTC or blank)
+	}
+	else
+	{
+		P4IFG &= (BIT0 + BIT1);
+	}
 }
