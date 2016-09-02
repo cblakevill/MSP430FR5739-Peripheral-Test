@@ -55,7 +55,7 @@ int main(void)
 
 void initialise(void)
 {
-    //Initialise LEDS
+ 	//Initialise LEDS
 	PJDIR |= (LED1 + LED2 + LED3 + LED4);
 	P3DIR |= (LED5 + LED6 + LED7 + LED8);
 	PJOUT &= ~(LED1 + LED2 + LED3 + LED4);
@@ -83,7 +83,6 @@ void initialise(void)
 	P1SEL1 = BIT4;
 
 	//Initialise ADC
-	//ADC initialisation from https://github.com/jaspreetsingh009/python_msp430/blob/guicode.py/msp430_code.c
 	ADC10CTL0 &= ~ADC10ENC; //disable conversion
 	ADC10CTL0 = ADC10ON + ADC10SHT_5; //enable adc + sample hold select 5
 	ADC10CTL1 = ADC10SHS_0 + ADC10SHP + ADC10CONSEQ_0 + ADC10SSEL_0;
@@ -96,11 +95,10 @@ void initialise(void)
 #pragma vector = PORT4_VECTOR
 __interrupt void P4_ISR(void)
 {
-
 	disableButtons();
 
 	P4IFG &= ~(BIT0 + BIT1);
-	bool_button ^= 1; //toggle PJOUT output (either NTC or all high)
+	bool_button ^= 1; //toggle output mode (peripheral demo or blank)
 
 	debounce(); //200ms debounce
 }
@@ -162,7 +160,6 @@ void updateLEDs(void)
 
 	//update thermistor LEDs
 	TempResult = TempMeasure - TempInitial;
-
 	if(TempResult < 160)
 		PJOUT = 0x00;
 	else
