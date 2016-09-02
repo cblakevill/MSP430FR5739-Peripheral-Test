@@ -34,9 +34,9 @@ unsigned int TempResult = 0;
 
 int main(void)
 {
-    WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
-    initialise();
-    updateTemp(1);
+	WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
+	initialise();
+	updateTemp(1);
 
 	while(1)
 	{
